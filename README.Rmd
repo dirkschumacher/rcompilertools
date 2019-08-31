@@ -1,0 +1,54 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+# rcompilertools
+
+<!-- badges: start -->
+[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+<!-- badges: end -->
+
+The goal of rcompilertools is access work with R's bytecode. Not a lot to see at the moment.
+
+## Installation
+
+``` r
+remotes::install_github("dirkschumacher/rcompilertools")
+```
+
+## Example
+
+This is a basic example which shows you how to solve a common problem:
+
+```{r example}
+library(rcompilertools)
+
+some_code <- quote({
+  x <- 1
+  for (i in 1:10) x <- x + 1
+  x
+})
+
+opcode_table(some_code)
+```
+
+You can also get all OP codes
+
+```{r}
+opcodes()
+```
+
+
+## TODO:
+
+* How to I access the constant pool?

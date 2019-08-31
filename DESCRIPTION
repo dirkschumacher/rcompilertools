@@ -1,0 +1,18 @@
+Package: rcompilertools
+Title: Compiler Tools for R's bytecode compiler
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Dirk",
+           family = "Schumacher",
+           role = c("aut", "cre"),
+           email = "mail@dirk-schumacher.net")
+Description: Tools for working with byte code.
+Encoding: UTF-8
+LazyData: true
+License: MIT + file LICENSE
+Imports: 
+    compiler,
+    utils
+Suggests: 
+    testthat (>= 2.1.0)
+RoxygenNote: 6.1.1
