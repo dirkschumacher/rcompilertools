@@ -12,7 +12,8 @@ LazyData: true
 License: MIT + file LICENSE
 Imports: 
     compiler,
-    utils
+    utils,
+    tibble
 Suggests: 
     testthat (>= 2.1.0)
 RoxygenNote: 7.1.1

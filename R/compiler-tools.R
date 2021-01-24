@@ -1,5 +1,6 @@
 #' Obtain the OP codes of compiled bytecode
 #' @param bcode bytecode or something that can be compiled to byte code
+#' @import tibble
 #' @export
 tidy_bytecode <- function(bcode) {
   bcode <- ensure_bytecode(bcode)
@@ -12,11 +13,10 @@ tidy_bytecode <- function(bcode) {
   types <- classify_ops(ops)
   structure(
     list(
-      code = data.frame(
+      code = tibble(
         op_code = ops,
         op_code_int = ops_int,
-        type = types,
-        stringsAsFactors = FALSE
+        type = types
       ),
       constant_pool = const_pool
     ), class = "tidy_bytecode"
@@ -37,12 +37,12 @@ eval_code <- function(x) {
 }
 
 #' A data.frame of all OP codes
+#' @import tibble
 #' @export
 opcodes <- function() {
-  res <- data.frame(
+  res <- tibble(
     name = compiler:::Opcodes.names,
-    args = as.integer(compiler:::Opcodes.argc[compiler:::Opcodes.names]),
-    stringsAsFactors = FALSE
+    args = as.integer(compiler:::Opcodes.argc[compiler:::Opcodes.names])
   )
   cmp_ns <- getNamespace("compiler")
   res$code <- vapply(res$name, function(name) {

@@ -3,3 +3,4 @@
 export(eval_code)
 export(opcodes)
 export(tidy_bytecode)
+import(tibble)
