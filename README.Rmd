@@ -39,7 +39,7 @@ some_code <- quote({
   x
 })
 
-opcode_table(some_code)
+tidy_bytecode(some_code)
 ```
 
 You can also get all OP codes
@@ -49,6 +49,9 @@ opcodes()
 ```
 
 
-## TODO:
+You can also evaluate the byte code
 
-* How to I access the constant pool?
+```{r}
+eval_code(tidy_bytecode(some_code))
+```
+

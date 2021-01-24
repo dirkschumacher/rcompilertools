@@ -31,36 +31,97 @@ some_code <- quote({
   x
 })
 
-opcode_table(some_code)
-#>        op_code           type
-#> 1           11 INDEX_OR_LABEL
-#> 2   LDCONST.OP             OP
-#> 3            1 INDEX_OR_LABEL
-#> 4    SETVAR.OP             OP
-#> 5            3 INDEX_OR_LABEL
-#> 6       POP.OP             OP
-#> 7   LDCONST.OP             OP
-#> 8            5 INDEX_OR_LABEL
-#> 9  STARTFOR.OP             OP
-#> 10           9 INDEX_OR_LABEL
-#> 11           8 INDEX_OR_LABEL
-#> 12          21 INDEX_OR_LABEL
-#> 13   GETVAR.OP             OP
-#> 14           3 INDEX_OR_LABEL
-#> 15  LDCONST.OP             OP
-#> 16           1 INDEX_OR_LABEL
-#> 17      ADD.OP             OP
-#> 18          10 INDEX_OR_LABEL
-#> 19   SETVAR.OP             OP
-#> 20           3 INDEX_OR_LABEL
-#> 21      POP.OP             OP
-#> 22  STEPFOR.OP             OP
-#> 23          12 INDEX_OR_LABEL
-#> 24   ENDFOR.OP             OP
-#> 25      POP.OP             OP
-#> 26   GETVAR.OP             OP
-#> 27           3 INDEX_OR_LABEL
-#> 28   RETURN.OP             OP
+tidy_bytecode(some_code)
+#> $code
+#>        op_code op_code_int     type
+#> 1           12          12  OPERAND
+#> 2   LDCONST.OP          16 OPERATOR
+#> 3            1           1  OPERAND
+#> 4    SETVAR.OP          22 OPERATOR
+#> 5            3           3  OPERAND
+#> 6       POP.OP           4 OPERATOR
+#> 7   LDCONST.OP          16 OPERATOR
+#> 8            5           5  OPERAND
+#> 9  STARTFOR.OP          11 OPERATOR
+#> 10           9           9  OPERAND
+#> 11           8           8  OPERAND
+#> 12          21          21  OPERAND
+#> 13   GETVAR.OP          20 OPERATOR
+#> 14           3           3  OPERAND
+#> 15  LDCONST.OP          16 OPERATOR
+#> 16           1           1  OPERAND
+#> 17      ADD.OP          44 OPERATOR
+#> 18          10          10  OPERAND
+#> 19   SETVAR.OP          22 OPERATOR
+#> 20           3           3  OPERAND
+#> 21      POP.OP           4 OPERATOR
+#> 22  STEPFOR.OP          12 OPERATOR
+#> 23          12          12  OPERAND
+#> 24   ENDFOR.OP          13 OPERATOR
+#> 25      POP.OP           4 OPERATOR
+#> 26   GETVAR.OP          20 OPERATOR
+#> 27           3           3  OPERAND
+#> 28   RETURN.OP           1 OPERATOR
+#> 
+#> $constant_pool
+#> $constant_pool[[1]]
+#> {
+#>     x <- 1
+#>     for (i in 1:10) x <- x + 1
+#>     x
+#> }
+#> 
+#> $constant_pool[[2]]
+#> [1] 1
+#> 
+#> $constant_pool[[3]]
+#> x <- 1
+#> 
+#> $constant_pool[[4]]
+#> x
+#> 
+#> $constant_pool[[5]]
+#> x <- 1
+#> 
+#> $constant_pool[[6]]
+#>  [1]  1  2  3  4  5  6  7  8  9 10
+#> 
+#> $constant_pool[[7]]
+#> 1:10
+#> 
+#> $constant_pool[[8]]
+#> for (i in 1:10) x <- x + 1
+#> 
+#> $constant_pool[[9]]
+#> i
+#> 
+#> $constant_pool[[10]]
+#> for (i in 1:10) x <- x + 1
+#> 
+#> $constant_pool[[11]]
+#> x + 1
+#> 
+#> $constant_pool[[12]]
+#> x <- x + 1
+#> 
+#> $constant_pool[[13]]
+#> x
+#> 
+#> $constant_pool[[14]]
+#>  [1] NA  1  1  4  4  4  6  6  9  9  9  9  3  3  1  1 10 10 11 11  9  9  9  9  9
+#> [26]  3  3  3
+#> attr(,"class")
+#> [1] "expressionsIndex"
+#> 
+#> $constant_pool[[15]]
+#>  [1] NA  2  2  2  2  2  7  7  7  7  7  7  7  7  7  7  7  7  7  7  7  7  7  7  7
+#> [26] 12 12 12
+#> attr(,"class")
+#> [1] "srcrefsIndex"
+#> 
+#> 
+#> attr(,"class")
+#> [1] "tidy_bytecode"
 ```
 
 You can also get all OP codes
@@ -195,8 +256,13 @@ opcodes()
 #> 125            INCLNK.OP    0  124
 #> 126            DECLNK.OP    0  125
 #> 127          DECLNK_N.OP    1  126
+#> 128         INCLNKSTK.OP    0  127
+#> 129         DECLNKSTK.OP    0  128
 ```
 
-## TODO:
+You can also evaluate the byte code
 
-  - How to I access the constant pool?
+``` r
+eval_code(tidy_bytecode(some_code))
+#> [1] 11
+```
